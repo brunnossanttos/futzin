@@ -94,8 +94,7 @@ The frontend will be available at: `http://localhost:5173`
 
 ## 📖 Documentation
 
-- **[GUIA-COMPLETO.md](./GUIA-COMPLETO.md)** - Complete development tutorial (PT-BR)
-- **[PASSO-A-PASSO.md](./PASSO-A-PASSO.md)** - Step-by-step implementation guide (PT-BR)
+- **[GUIA-COMPLETO.md](./GUIA-COMPLETO.md)** - Complete development tutorial (ENG)
 - **Futzin.Api.http** - Request examples
 
 ---
