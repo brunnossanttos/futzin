@@ -44,13 +44,15 @@ const Login = () => {
     <div className="auth-container">
       <div className="auth-box">
         <div className="auth-header">
-          <h1>⚽ Futzin</h1>
-          <p>Organize suas peladas facilmente</p>
+          <div className="logo-container">
+            <img src="/logo-sem-nome.png" alt="Futzin" className="logo-icon" />
+          </div>
+          <h1 className="logo-text">Futzin</h1>
+          <p className="auth-subtitle">Organize suas peladas facilmente</p>
         </div>
 
         <Card>
           <form onSubmit={handleSubmit}>
-            <h2 className="auth-title">Entrar</h2>
 
             {error && <div className="error-message">{error}</div>}
 

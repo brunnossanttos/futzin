@@ -72,8 +72,11 @@ const Register = () => {
     <div className="auth-container">
       <div className="auth-box">
         <div className="auth-header">
-          <h1>⚽ Futzin</h1>
-          <p>Crie sua conta e organize suas peladas</p>
+          <div className="logo-container">
+            <img src="/logo-sem-nome.png" alt="Futzin" className="logo-icon" />
+          </div>
+          <h1 className="logo-text">Futzin</h1>
+          <p className="auth-subtitle">Crie sua conta e organize suas peladas</p>
         </div>
 
         <Card>

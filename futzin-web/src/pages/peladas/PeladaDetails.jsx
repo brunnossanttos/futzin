@@ -152,7 +152,7 @@ const PeladaDetails = () => {
   return (
     <div className="pelada-details">
       <div className="details-container">
-        <Button variant="outline" size="small" onClick={() => navigate('/dashboard')}>
+        <Button size="small" onClick={() => navigate('/dashboard')}>
           ← Voltar
         </Button>
 

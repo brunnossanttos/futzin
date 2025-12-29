@@ -14,10 +14,22 @@ const Dashboard = () => {
   const [myParticipations, setMyParticipations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all'); // all, my-peladas, my-participations
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuOpen && !event.target.closest('.menu-container')) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [menuOpen]);
 
   const fetchData = async () => {
     try {
@@ -74,12 +86,25 @@ const Dashboard = () => {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="dashboard-header-content">
-          <h1>⚽ Futzin</h1>
-          <div className="dashboard-header-actions">
+          <div className="header-logo">
+            <img src="/logo-sem-nome.png" alt="Futzin" className="header-logo-full" />
+          </div>
+          <div className="header-center">
             <span className="user-name">Olá, {user?.name}!</span>
-            <Button variant="outline" size="small" onClick={logout}>
-              Sair
-            </Button>
+          </div>
+          <div className="dashboard-header-actions">
+            <div className="menu-container">
+              <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
+                ⋮
+              </button>
+              {menuOpen && (
+                <div className="menu-dropdown">
+                  <button className="menu-item" onClick={() => { logout(); setMenuOpen(false); }}>
+                    Sair
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

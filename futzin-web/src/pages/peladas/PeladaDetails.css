@@ -9,6 +9,10 @@
   margin: 0 auto;
 }
 
+.details-container > button:first-child {
+  margin-bottom: 1.5rem;
+}
+
 .details-container > * {
   margin-bottom: 1.5rem;
 }

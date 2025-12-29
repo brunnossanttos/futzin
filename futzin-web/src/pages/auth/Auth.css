@@ -3,8 +3,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 0%, #0a0a0f 30%, #0f0f1a 70%, #05050a 100%);
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .auth-box {
@@ -14,20 +16,39 @@
 
 .auth-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   color: white;
 }
 
-.auth-header h1 {
-  font-size: 3rem;
-  margin: 0 0 0.5rem 0;
-  font-weight: 800;
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.auth-header p {
+.logo-icon {
+  width: 180px;
+  height: 180px;
+  mix-blend-mode: screen;
+}
+
+.logo-text {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #26de81 0%, #20bf6b 50%, #10ac84 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.auth-subtitle {
   margin: 0;
   font-size: 1.125rem;
-  opacity: 0.95;
+  opacity: 0.9;
+  font-weight: 400;
 }
 
 .auth-title {
@@ -45,12 +66,14 @@
 }
 
 .auth-link {
-  color: #667eea;
+  color: #20bf6b;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .auth-link:hover {
+  color: #26de81;
   text-decoration: underline;
 }
 

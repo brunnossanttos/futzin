@@ -94,7 +94,7 @@ const PeladaForm = () => {
   return (
     <div className="pelada-form-container">
       <div className="pelada-form-box">
-        <Button variant="outline" size="small" onClick={() => navigate('/dashboard')}>
+        <Button size="small" onClick={() => navigate('/dashboard')}>
           ← Voltar
         </Button>
 
@@ -202,7 +202,7 @@ const PeladaForm = () => {
             </div>
 
             <div className="form-actions">
-              <Button type="button" variant="secondary" onClick={() => navigate('/dashboard')}>
+              <Button type="button" variant="danger" onClick={() => navigate('/dashboard')}>
                 Cancelar
               </Button>
               <Button type="submit" loading={loading}>
