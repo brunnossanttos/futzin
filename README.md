@@ -188,4 +188,4 @@ GitHub: [@brunnossanttos](https://github.com/brunnossanttos)
 
 ---
 
-**Built with ⚽ and ☕**
+**Built with ⚽ and 🥤**

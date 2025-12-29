@@ -49,6 +49,34 @@ namespace Futzin.Api.Migrations
                     b.ToTable("Goals");
                 });
 
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.GroupMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("GroupId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("GroupMembers");
+                });
+
             modelBuilder.Entity("Futzin.Api.Domain.Entities.Pelada", b =>
                 {
                     b.Property<int>("Id")
@@ -64,10 +92,30 @@ namespace Futzin.Api.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("DayOfMonth")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DayOfWeek")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("FieldType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("InviteToken")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPublic")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Location")
@@ -86,6 +134,12 @@ namespace Futzin.Api.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<DateTime?>("RecurrenceEndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RecurrenceType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
@@ -93,7 +147,110 @@ namespace Futzin.Api.Migrations
 
                     b.HasIndex("CreatedById");
 
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("InviteToken")
+                        .IsUnique();
+
                     b.ToTable("Peladas");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaAttendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PeladaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ResponseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("PeladaId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("PeladaAttendances");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("PeladaGroups");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaInvite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("AcceptedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("InvitedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("InvitedUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PeladaId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvitedUserId");
+
+                    b.HasIndex("PeladaId", "InvitedUserId")
+                        .IsUnique();
+
+                    b.ToTable("PeladaInvites");
                 });
 
             modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaParticipant", b =>
@@ -199,6 +356,65 @@ namespace Futzin.Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.UserStats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("AttendanceRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("BestWinStreak")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CurrentWinStreak")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("GoalsPerGame")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<DateTime?>("LastPeladaDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TotalDraws")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalGoals")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalLosses")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalNoShows")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalPeladas")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalWins")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("WinRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserStats");
+                });
+
             modelBuilder.Entity("Futzin.Api.Domain.Entities.Goal", b =>
                 {
                     b.HasOne("Futzin.Api.Domain.Entities.Pelada", "Pelada")
@@ -226,6 +442,25 @@ namespace Futzin.Api.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.GroupMember", b =>
+                {
+                    b.HasOne("Futzin.Api.Domain.Entities.PeladaGroup", "Group")
+                        .WithMany("Members")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Futzin.Api.Domain.Entities.User", "User")
+                        .WithMany("GroupMemberships")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Futzin.Api.Domain.Entities.Pelada", b =>
                 {
                     b.HasOne("Futzin.Api.Domain.Entities.User", "CreatedBy")
@@ -234,7 +469,63 @@ namespace Futzin.Api.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Futzin.Api.Domain.Entities.PeladaGroup", "Group")
+                        .WithMany("Peladas")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaAttendance", b =>
+                {
+                    b.HasOne("Futzin.Api.Domain.Entities.Pelada", "Pelada")
+                        .WithMany("Attendances")
+                        .HasForeignKey("PeladaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Futzin.Api.Domain.Entities.User", "User")
+                        .WithMany("Attendances")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pelada");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaGroup", b =>
+                {
+                    b.HasOne("Futzin.Api.Domain.Entities.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaInvite", b =>
+                {
+                    b.HasOne("Futzin.Api.Domain.Entities.User", "InvitedUser")
+                        .WithMany()
+                        .HasForeignKey("InvitedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Futzin.Api.Domain.Entities.Pelada", "Pelada")
+                        .WithMany("Invites")
+                        .HasForeignKey("PeladaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("InvitedUser");
+
+                    b.Navigation("Pelada");
                 });
 
             modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaParticipant", b =>
@@ -274,13 +565,35 @@ namespace Futzin.Api.Migrations
                     b.Navigation("Pelada");
                 });
 
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.UserStats", b =>
+                {
+                    b.HasOne("Futzin.Api.Domain.Entities.User", "User")
+                        .WithOne("Stats")
+                        .HasForeignKey("Futzin.Api.Domain.Entities.UserStats", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Futzin.Api.Domain.Entities.Pelada", b =>
                 {
+                    b.Navigation("Attendances");
+
                     b.Navigation("Goals");
+
+                    b.Navigation("Invites");
 
                     b.Navigation("Participants");
 
                     b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("Futzin.Api.Domain.Entities.PeladaGroup", b =>
+                {
+                    b.Navigation("Members");
+
+                    b.Navigation("Peladas");
                 });
 
             modelBuilder.Entity("Futzin.Api.Domain.Entities.Team", b =>
@@ -292,11 +605,17 @@ namespace Futzin.Api.Migrations
 
             modelBuilder.Entity("Futzin.Api.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Attendances");
+
                     b.Navigation("Goals");
+
+                    b.Navigation("GroupMemberships");
 
                     b.Navigation("Participations");
 
                     b.Navigation("PeladasCreated");
+
+                    b.Navigation("Stats");
                 });
 #pragma warning restore 612, 618
         }
