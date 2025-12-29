@@ -11,8 +11,10 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
     
-    // Navigation properties
     public ICollection<Pelada> PeladasCreated { get; set; } = new List<Pelada>();
     public ICollection<PeladaParticipant> Participations { get; set; } = new List<PeladaParticipant>();
+    public ICollection<PeladaAttendance> Attendances { get; set; } = new List<PeladaAttendance>();
     public ICollection<Goal> Goals { get; set; } = new List<Goal>();
+    public ICollection<GroupMember> GroupMemberships { get; set; } = new List<GroupMember>();
+    public UserStats? Stats { get; set; }
 }
